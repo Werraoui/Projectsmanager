@@ -1,6 +1,6 @@
 import { createRouter, createWebHistory } from 'vue-router'
 import { auth } from '@/firebase/config'
-import LoginView from '../views/LoginView.vue'
+// import LoginView from '../views/LoginView.vue'
 import DashboardView from '../views/DashboardView.vue'
 
 const router = createRouter({
@@ -10,16 +10,16 @@ const router = createRouter({
       path: '/',
       redirect: '/login'
     },
-    {
-      path: '/login',
-      name: 'Login',
-      component: LoginView
-    },
+    // {
+    //   path: '/login',
+    //   name: 'Login',
+    //   component: LoginView
+    // },
     {
       path: '/dashboard',
       name: 'Dashboard',
       component: DashboardView,
-      meta: { requiresAuth: true }
+      // meta: { requiresAuth: true }
     }
   ]
 })
