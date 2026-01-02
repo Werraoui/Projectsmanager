@@ -1,5 +1,6 @@
 <script setup>
 import { onMounted, ref, computed } from 'vue'
+import { useRouter } from 'vue-router'
 import { useProjectStore } from '@/stores/projectStore'
 import { Modal } from 'bootstrap'
 
@@ -23,8 +24,9 @@ onMounted(() => {
 const modalTitle = computed(() => isEditing.value ? 'Modifier le projet' : 'Nouveau projet')
 
 // Fonctions temporaires pour open
+const router = useRouter()
 const openProject = (projectId) => {
-  console.log('Ouvrir projet', projectId)
+  router.push(`/project/${projectId}`)
 }
 
 const openCreateModal = () => {

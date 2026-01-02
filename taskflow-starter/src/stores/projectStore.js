@@ -21,32 +21,33 @@ export const useProjectStore = defineStore('project', {
 
     // 🔄 Récupération temps réel
     fetchProjects() {
-  const fakeUserId = "TEST_USER_123"
+      const authStore = useAuthStore()
+      if (!authStore.user) return
 
-  const q = query(
-    collection(db, 'projets'),
-    where('userId', '==', fakeUserId)
-  )
+      const q = query(
+        collection(db, 'projets'),
+        where('userId', '==', authStore.user.uid)
+      )
 
-  onSnapshot(q, (snapshot) => {
-    console.log(snapshot.docs.map(doc => doc.data()))
+      onSnapshot(q, (snapshot) => {
+        // console.log(snapshot.docs.map(doc => doc.data()))
 
-    this.projects = snapshot.docs.map(doc => ({
-      id: doc.id,
-      ...doc.data()
-    }))
-  })
-},
+        this.projects = snapshot.docs.map(doc => ({
+          id: doc.id,
+          ...doc.data()
+        }))
+      })
+    },
 
 
     // ➕ Création
     async addProject(project) {
-      // const authStore = useAuthStore()
-       const fakeUserId = "TEST_USER_123" 
+      const authStore = useAuthStore()
+      if (!authStore.user) throw new Error('User not authenticated')
+
       await addDoc(collection(db, 'projets'), {
         ...project,
-        // userId: authStore.user.uid,
-        userId: fakeUserId,
+        userId: authStore.user.uid,
         createdAt: new Date()
       })
     },
