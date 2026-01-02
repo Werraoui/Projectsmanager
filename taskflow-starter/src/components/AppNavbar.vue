@@ -6,7 +6,7 @@ import { auth } from '@/firebase/config'
 
 const authStore = useAuthStore()
 const router = useRouter()
-const user = computed(() => auth.currentUser)
+const user = computed(() => authStore.user)
 
 const handleLogout = async () => {
   await authStore.logout()
